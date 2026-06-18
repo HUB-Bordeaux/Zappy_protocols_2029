@@ -42,6 +42,24 @@ root_type Broadcast;
 
 ---
 
+## Valeurs possibles de `com_type`
+
+Le champ `com_type` permet de distinguer les intentions de communication dans le paquet broadcast.
+
+| `com_type` | Description |
+| ---------- | ----------- |
+| `gather`   | Indique qu'une montée en niveau est possible pour un ou plusieurs joueurs et qu'ils doivent se regrouper pour tenter l'incantation à la position du joueur qui a démarré le regroupement. |
+| `ask`      | Demande aux autres joueurs combien d'objets d'un type précis ils possèdent encore. Le type d'objet est donné dans `payload`, et `quantity` représente la quantité manquante côté émetteur. |
+| `answer`   | Réponse à un message `ask`. Le champ `payload` doit contenir le type d'objet concerné et `quantity` la quantité réellement détenue. |
+
+### Convention de lecture
+
+- `payload` contient l'information principale liée au type de communication.
+- `quantity` est utilisé comme valeur numérique associée à `payload`.
+- `target_id` peut être utilisé pour adresser un joueur précis si nécessaire, sinon le message est destiné à l'équipe entière.
+
+---
+
 # Génération des fichiers FlatBuffers
 
 À partir du fichier de définition :
